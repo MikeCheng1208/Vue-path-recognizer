@@ -293,7 +293,6 @@ class PathPoint {
 <template>
     <div class="PathRecognizer">
         <slot
-          :text="'props test'"
           :onMouseDown="handleDown"
           :onMouseUp="handleUp"
         ></slot>
