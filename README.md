@@ -1,4 +1,4 @@
-react-path-recognizer
+Vue-path-recognizer
 =====================
 
 ## Demo
