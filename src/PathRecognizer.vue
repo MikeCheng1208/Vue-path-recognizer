@@ -84,10 +84,6 @@ export default {
             }
           }
         },
-    },
-    mounted(){
-        // this.handleDown();
-        // this.handleUp();
     }
 }
 
