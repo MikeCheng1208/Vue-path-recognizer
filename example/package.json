@@ -20,7 +20,6 @@
     "@babel/preset-env": "^7.5.2",
     "@vue/component-compiler-utils": "^3.0.0",
     "parcel-bundler": "^1.12.3",
-    "sass": "^1.22.3",
     "vue-template-compiler": "^2.6.10"
   }
 }

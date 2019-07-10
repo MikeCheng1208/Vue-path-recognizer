@@ -1,0 +1,47 @@
+{
+  "name": "vue-path-recognizer",
+  "version": "1.0.0",
+  "description": "Testing Metamask's status with Vue",
+  "main": "./dist/index.js",
+  "scripts": {
+    "deploy": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MikeCheng1208/Vue-path-recognizer.git"
+  },
+  "keywords": [
+    "vue",
+    "javascript"
+  ],
+  "author": "mike cheng <https://github.com/MikeCheng1208/> (https://github.com/MikeCheng1208/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MikeCheng1208/Vue-path-recognizer/issues"
+  },
+  "homepage": "https://github.com/MikeCheng1208/Vue-path-recognizer",
+  "devDependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-export-extensions": "^6.22.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^3.0.0",
+    "loader-utils": "^1.2.3",
+    "npm": "^6.10.0",
+    "npm-run-all": "^4.1.5",
+    "style-loader": "^0.23.1",
+    "vue": "^2.6.10",
+    "vue-html-loader": "^1.2.4",
+    "vue-loader": "^15.7.0",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.5",
+    "webpack-manifest-plugin": "^2.0.4"
+  }
+}

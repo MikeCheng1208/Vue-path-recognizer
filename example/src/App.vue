@@ -125,7 +125,6 @@ export default {
     >
       <template v-slot:default="props">
         <canvas
-          ref="canvas"
           id="canvas"
           width="400"
           height="400"

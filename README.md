@@ -15,7 +15,7 @@ npm install vue-path-recognizer --save
 Import the PathRecongizer component. PathRecognizer is a container, it requires a child element to capture mouse moves. PathRecognizer does not draw the moves, for a full drawing example, check the example/ folder of this repo.
 
 ```js
-import PathRecognizer, { PathRecognizerModel } from 'vue-path-recognizer'
+import PathRecognizer, { PathRecognizerModel } from 'vue-path-recognizer';
 
 export default {
   components: {
@@ -148,25 +148,25 @@ For a full example, please consult the example folder of this repo.
         <tr>
           <td>onStartDraw</td>
           <td>Function()</td>
-          <td>null</td>
+          <td>function</td>
           <td>Invoked when the user mouse down the zone</td>
         </tr>
         <tr>
           <td>onMovePath</td>
           <td>Function([{x:Number, y:Number}])</td>
-          <td>null</td>
+          <td>function</td>
           <td>Invoked when the user move his mouse during a record session</td>
         </tr>
        <tr>
           <td>onStopDraw</td>
           <td>Function()</td>
-          <td>null</td>
+          <td>function</td>
           <td>Invoked when the user mouse up the zone</td>
         </tr>
         <tr>
           <td>onGesture</td>
           <td>Function(datas:Any)</td>
-          <td>null</td>
+          <td>function</td>
           <td>Invoked with the datas of the model recognized or null if no gesture is recognized</td>
         </tr>
     </tbody>
