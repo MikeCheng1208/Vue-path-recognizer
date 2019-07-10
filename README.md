@@ -1,7 +1,6 @@
 
 
 ![ScreenShot](./assets/Vue-path-recognizer.jpg)
-<h2 align=center>Vue-path-recognizer</h2>
 <p align=center>Path recognizing component for Vue</p>
 <p align=center>
     <a target="_blank" href="https://vuejs.org/" title="vue">
