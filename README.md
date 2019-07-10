@@ -1,7 +1,8 @@
 
-![ScreenShot](./assets/Vue-path-recognizer.jpg)
 
+![ScreenShot](./assets/Vue-path-recognizer.jpg)
 <h2 align=center>Vue-path-recognizer</h2>
+<p align=center>Path recognizing component for Vue</p>
 <p align=center>
     <a target="_blank" href="https://vuejs.org/" title="vue">
         <img src="https://img.shields.io/badge/vue-%3E%202.5.0-brightgreen.svg">
@@ -14,9 +15,9 @@
     </a>
 </p>
 
+[![NPM](https://nodei.co/npm/vue-path-recognizer.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/vue-path-recognizer)
+
 ## Demo
-
-
 <img style="display:block; width: 100%;" src="https://mikecheng1208.github.io/Vue-path-recognizer/assets/screencast.gif">
 
 ## Installation
