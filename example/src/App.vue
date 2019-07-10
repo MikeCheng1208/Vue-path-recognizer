@@ -11,7 +11,6 @@ export default {
       context: null,
       result: "",
       models: [
-        new PathRecognizerModel([6,0, 2,4,7], "幹"),
         new PathRecognizerModel([0, 3, 7, 1, 5], "★"),
         new PathRecognizerModel([7, 1], "A"),
         new PathRecognizerModel([2, 6, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4], "B"),
