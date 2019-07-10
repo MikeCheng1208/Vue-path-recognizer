@@ -46,7 +46,7 @@ models: [
   new PathRecognizerModel([4,3,2,1,0,4,3,2,1,0], "E")
 }
 ```
-
+Wrap your sliding template range
 ```html
 
 <path-recognizer
