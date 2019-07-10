@@ -1,6 +1,4 @@
 <script>
-import Vue from "vue";
-// import PathRecognizer, { PathRecognizerModel } from "./PathRecognizer.vue";
 import PathRecognizer, { PathRecognizerModel } from 'vue-path-recognizer';
 export default {
   components: {
