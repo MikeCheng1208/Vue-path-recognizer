@@ -7,7 +7,7 @@ Vue-path-recognizer
 
 ## Installation
 ```bash
-yarn install vue-path-recognizer --save
+npm install vue-path-recognizer --save
 ```
 
 ## Basic usage
