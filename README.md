@@ -4,7 +4,7 @@
 <p align=center>Path recognizing component for Vue</p>
 <p align=center>
     <a target="_blank" href="https://vuejs.org/" title="vue">
-        <img src="https://img.shields.io/badge/vue-%3E%202.5.0-brightgreen.svg">
+        <img src="https://img.shields.io/badge/vue-%3E%202.6.1-brightgreen.svg">
     </a>
     <a target="_blank" href="http://nodejs.org/download/" title="Node version">
         <img src="https://img.shields.io/badge/node-%3E%3D%208.0.0-brightgreen.svg">
