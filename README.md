@@ -1,9 +1,23 @@
-Vue-path-recognizer
-=====================
+
+![ScreenShot](./assets/Vue-path-recognizer.jpg)
+
+<h2 align=center>Vue-path-recognizer</h2>
+<p align=center>
+    <a target="_blank" href="https://vuejs.org/" title="vue">
+        <img src="https://img.shields.io/badge/vue-%3E%202.5.0-brightgreen.svg">
+    </a>
+    <a target="_blank" href="http://nodejs.org/download/" title="Node version">
+        <img src="https://img.shields.io/badge/node-%3E%3D%208.0.0-brightgreen.svg">
+    </a>
+    <a target="_blank" href="https://github.com/MikeCheng1208/Vue-path-recognizer/pulls" title="PRs Welcome">
+        <img src="https://img.shields.io/badge/PRs-welcome-blue.svg">
+    </a>
+</p>
 
 ## Demo
 
-![ScreenShot](https://mikecheng1208.github.io/Vue-path-recognizer/assets/screencast.gif)
+
+<img style="display:block; width: 100%;" src="https://mikecheng1208.github.io/Vue-path-recognizer/assets/screencast.gif">
 
 ## Installation
 ```bash
@@ -95,11 +109,11 @@ For example, the letter D & P have a similar draw-direction-path, however you ca
     switch (model.datas){
       case "P":
         lastPoint = [...infos.deltaPoints].pop()
-        if (lastPoint.y > infos.boundingBox.top + infos.boundingBox.height * 0.6)return Number.POSITIVE_INFINITY
+        if (lastPoint.y > infos.boundingBox.top + infos.boundingBox.height * 0.6) return Number.POSITIVE_INFINITY
         return infos.cost
       case "D":
         lastPoint = [...infos.deltaPoints].pop()
-        if (lastPoint.y < infos.boundingBox.top + infos.boundingBox.height * 0.6)return Number.POSITIVE_INFINITY
+        if (lastPoint.y < infos.boundingBox.top + infos.boundingBox.height * 0.6) return Number.POSITIVE_INFINITY
         return infos.cost
    }
 }
@@ -178,6 +192,9 @@ In this sample project I've used the Graffiti alphabet for the didactic aspect. 
 
 ![ScreenShot](https://mikecheng1208.github.io/Vue-path-recognizer/assets/other_moves.gif)
 
+## References & Original Authors
+[Didier Brun](https://github.com/didierbrun)
+<br/>
+<br/>
 ## License
-
 MIT © [MikeCheng1208](https://github.com/MikeCheng1208)

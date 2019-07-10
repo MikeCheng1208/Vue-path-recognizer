@@ -140,8 +140,8 @@ export default {
   </div>
 </template>
 
-<style lang="scss">
-    #canvas{
-        background-color: #ddd;
-    }
+<style>
+  #canvas{
+      background-color: #ddd;
+  }
 </style>
