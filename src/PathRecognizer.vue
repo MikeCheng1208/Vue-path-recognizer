@@ -1,5 +1,5 @@
 <script>
-export class PathRecognizerModel {
+export class PathRecognizerModels {
   constructor(directions, datas, filter = null) {
     this.directions = directions
     this.datas = datas

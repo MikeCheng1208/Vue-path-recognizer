@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "vue": "^2.6.10",
-    "vue-hot-reload-api": "^2.3.3"
+    "vue-hot-reload-api": "^2.3.3",
+    "vue-path-recognizer": "^1.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.5.0",
