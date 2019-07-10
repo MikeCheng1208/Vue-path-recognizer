@@ -1,7 +1,7 @@
 {
   "name": "vue-path-recognizer",
-  "version": "1.0.11",
-  "description": "Testing Metamask's status with Vue",
+  "version": "1.0.12",
+  "description": "Path recognizing component for Vue",
   "main": "./src/index.js",
   "scripts": {
     "deploy": "webpack --mode production",
