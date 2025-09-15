@@ -1,12 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import {
-  PathRecognizerCore,
-  Path,
-  PathInfos,
-  PathRect,
-  PathPoint,
-} from "./models.js";
+import { PathRecognizerCore, Path } from "./models.js";
 
 // Props 定義
 const props = defineProps({
@@ -144,8 +138,4 @@ defineExpose({
   </div>
 </template>
 
-<style scoped>
-.PathRecognizer {
-  /* 保持原有樣式或添加新樣式 */
-}
-</style>
+<style scoped></style>

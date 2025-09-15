@@ -1,13 +1,13 @@
 
 
-![ScreenShot](./assets/Vue-path-recognizer.jpg)
-<p align=center>Path recognizing component for Vue</p>
+![ScreenShot](https://mikecheng1208.github.io/Vue-path-recognizer/assets/Vue-path-recognizer.jpg)
+<p align=center>Path recognizing component for Vue 3</p>
 <p align=center>
     <a target="_blank" href="https://vuejs.org/" title="vue">
-        <img src="https://img.shields.io/badge/vue-%3E%202.6.1-brightgreen.svg">
+        <img src="https://img.shields.io/badge/vue-%3E%203.0.0-brightgreen.svg">
     </a>
     <a target="_blank" href="http://nodejs.org/download/" title="Node version">
-        <img src="https://img.shields.io/badge/node-%3E%3D%208.0.0-brightgreen.svg">
+        <img src="https://img.shields.io/badge/node-%3E%3D%2018.0.0-brightgreen.svg">
     </a>
     <a target="_blank" href="https://github.com/MikeCheng1208/Vue-path-recognizer/pulls" title="PRs Welcome">
         <img src="https://img.shields.io/badge/PRs-welcome-blue.svg">
@@ -26,10 +26,32 @@ npm install vue-path-recognizer --save
 
 ## Basic usage
 
-Import the PathRecongizer component. PathRecognizer is a container, it requires a child element to capture mouse moves. PathRecognizer does not draw the moves, for a full drawing example, check the example/ folder of this repo.
+Import the PathRecongizer component. PathRecognizer is a container, it requires a child element to capture mouse moves. PathRecognizer does not draw the moves.
+
+### Vue 3 with Composition API (Recommended)
+
+```vue
+<script setup>
+import { ref } from 'vue';
+import PathRecognizer, { PathRecognizerModels } from 'vue-path-recognizer';
+
+const result = ref("");
+const models = [
+  new PathRecognizerModels([7, 1], "A"),
+  new PathRecognizerModels([2, 6, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4], "B"),
+  new PathRecognizerModels([4, 3, 2, 1, 0], "C"),
+];
+
+const handleGesture = (data) => {
+  result.value = data;
+};
+</script>
+```
+
+### Vue 3 with Options API
 
 ```js
-import PathRecognizer, { PathRecognizerModel } from 'vue-path-recognizer';
+import PathRecognizer, { PathRecognizerModels } from 'vue-path-recognizer';
 
 export default {
   components: {
@@ -37,12 +59,11 @@ export default {
   },
   data() {
     return {
-      context: null,
       result: "",
       models: [
-        new PathRecognizerModel([7, 1], "A"),
-        new PathRecognizerModel([2, 6, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4], "B"),
-        new PathRecognizerModel([4, 3, 2, 1, 0], "C"),
+        new PathRecognizerModels([7, 1], "A"),
+        new PathRecognizerModels([2, 6, 0, 1, 2, 3, 4, 0, 1, 2, 3, 4], "B"),
+        new PathRecognizerModels([4, 3, 2, 1, 0], "C"),
       ]
     }
   }
@@ -53,11 +74,11 @@ Each path is defined by a direction-sequence and an associated data object.
 
 ```js
 models: [
-  new PathRecognizerModel([7, 1], "A"),
-  new PathRecognizerModel([2,6,0,1,2,3,4,0,1,2,3,4], "B"),
-  new PathRecognizerModel([4,3,2,1,0], "C"),
-  new PathRecognizerModel([2,6,7,0,1,2,3,4], "D"),
-  new PathRecognizerModel([4,3,2,1,0,4,3,2,1,0], "E")
+  new PathRecognizerModels([7, 1], "A"),
+  new PathRecognizerModels([2,6,0,1,2,3,4,0,1,2,3,4], "B"),
+  new PathRecognizerModels([4,3,2,1,0], "C"),
+  new PathRecognizerModels([2,6,7,0,1,2,3,4], "D"),
+  new PathRecognizerModels([4,3,2,1,0,4,3,2,1,0], "E")
 }
 ```
 Wrap your sliding template range
@@ -99,7 +120,7 @@ Set the models and the onGesture prop on the PathRecognizer component :
 Note that onGesture({datas}) is always invoked at the end of the drawing. If no gesture is recognized, this parametter is null.
 
 ## Custom filter
-While adding a model, you can specify a custom filter (third parametter of PathRecognizerModel). The filter callback method, if specified, will let you a last chance to modify / analyze the datas to determine a new score.
+While adding a model, you can specify a custom filter (third parametter of PathRecognizerModels). The filter callback method, if specified, will let you a last chance to modify / analyze the datas to determine a new score.
 
 For example, the letter D & P have a similar draw-direction-path, however you can discriminate each one by detecting the position of the last point (up -> it's a P, down -> it's a D). The PathInfos struct transmited to the filter function will help you to determine the new score.
 
@@ -155,7 +176,7 @@ For a full example, please consult the example folder of this repo.
         </tr>
         <tr>
           <td>models</td>
-          <td>[PathRecognizerModel([Number], Any)]</td>
+          <td>[PathRecognizerModels([Number], Any)]</td>
           <td>[]</td>
           <td>Models to recognize</td>
         </tr>
