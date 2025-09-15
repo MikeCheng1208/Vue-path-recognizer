@@ -78,19 +78,31 @@ const handleStartDraw = () => {
 };
 
 const handleMovePath = (points) => {
+  const canvas = document.getElementById("canvas");
+  const rect = canvas.getBoundingClientRect();
+
   context.value.clearRect(0, 0, 400, 400);
-  context.value.moveTo(points[0].x, points[0].y);
-  context.value.beginPath();
-  for (let i = 1; i < points.length; i++) {
-    context.value.lineTo(points[i].x, points[i].y);
+
+  // 轉換全域座標為 canvas 相對座標
+  const canvasPoints = points.map((point) => ({
+    x: point.x - rect.left,
+    y: point.y - rect.top,
+  }));
+
+  if (canvasPoints.length > 0) {
+    context.value.beginPath();
+    context.value.moveTo(canvasPoints[0].x, canvasPoints[0].y);
+    for (let i = 1; i < canvasPoints.length; i++) {
+      context.value.lineTo(canvasPoints[i].x, canvasPoints[i].y);
+    }
+    context.value.stroke();
   }
-  context.value.stroke();
 };
 
 onMounted(() => {
   const canvas = document.getElementById("canvas");
   const ctx = canvas.getContext("2d");
-  ctx.stokeStyle = "#444";
+  ctx.strokeStyle = "#000";
   ctx.lineWidth = 6;
   context.value = ctx;
 });
