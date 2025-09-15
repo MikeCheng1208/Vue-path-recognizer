@@ -1,26 +1,19 @@
 {
   "name": "vue-path-recognizer-example",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "version": "2.0.0",
+  "description": "Example application for Vue Path Recognizer using Vue 3",
+  "private": true,
   "scripts": {
-    "clean": "rm dist/bundle.js",
-    "start": "parcel src/index.html",
-    "build-prod": "parcel build src/index.html"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^2.6.10",
-    "vue-hot-reload-api": "^2.3.3",
-    "vue-path-recognizer": "^1.0.6"
+    "vue": "^3.2.0",
+    "vue-path-recognizer": "file:.."
   },
   "devDependencies": {
-    "@babel/core": "^7.5.0",
-    "@babel/preset-env": "^7.5.2",
-    "@vue/component-compiler-utils": "^3.0.0",
-    "parcel-bundler": "^1.12.3",
-    "vue-template-compiler": "^2.6.10"
+    "@vitejs/plugin-vue": "^4.0.0",
+    "vite": "^4.0.0"
   }
 }
