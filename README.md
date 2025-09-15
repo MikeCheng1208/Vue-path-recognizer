@@ -1,6 +1,6 @@
 
 
-![ScreenShot](https://mikecheng1208.github.io/Vue-path-recognizer/assets/Vue-path-recognizer.jpg)
+![ScreenShot](./assets/Vue-path-recognizer.jpg)
 <p align=center>Path recognizing component for Vue 3</p>
 <p align=center>
     <a target="_blank" href="https://vuejs.org/" title="vue">
@@ -17,7 +17,7 @@
 [![NPM](https://nodei.co/npm/vue-path-recognizer.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/vue-path-recognizer)
 
 ## Demo
-<img style="display:block; width: 100%;" src="https://mikecheng1208.github.io/Vue-path-recognizer/assets/screencast.gif">
+<img style="display:block; width: 100%;" src="./assets/screencast.gif">
 
 ## Installation
 ```bash
@@ -103,7 +103,7 @@ Wrap your sliding template range
 
 For example, here the model for the letter E :
 
-![ScreenShot](https://mikecheng1208.github.io/Vue-path-recognizer/assets/directions.png)
+![ScreenShot](./assets/directions.png)
 
 Set the models and the onGesture prop on the PathRecognizer component :
 
@@ -140,7 +140,7 @@ For example, the letter D & P have a similar draw-direction-path, however you ca
 }
 ```
 
-For a full example, please consult the example folder of this repo.
+For a full example, please check the usage examples above.
 
 ## API
 
@@ -211,7 +211,7 @@ For a full example, please consult the example folder of this repo.
 
 In this sample project I've used the Graffiti alphabet for the didactic aspect. However, react-path-recognizer is a generic algorithm, you can add any free path to control an interface / game :
 
-![ScreenShot](https://mikecheng1208.github.io/Vue-path-recognizer/assets/other_moves.gif)
+![ScreenShot](./assets/other_moves.gif)
 
 ## References & Original Authors
 [Didier Brun](https://github.com/didierbrun)
