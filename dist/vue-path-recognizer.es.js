@@ -1,10 +1,126 @@
-import { ref as b, openBlock as R, createElementBlock as S, renderSlot as T } from "vue";
-const E = (d, p) => {
-  const f = d.__vccOpts || d;
-  for (const [r, h] of p)
-    f[r] = h;
-  return f;
-}, F = { class: "PathRecognizer" }, G = {
+import { ref as m, openBlock as x, createElementBlock as y, renderSlot as P } from "vue";
+class w {
+  constructor(n, o, t = null) {
+    this.directions = n, this.datas = o, this.filter = t;
+  }
+}
+class _ {
+  constructor(n, o, t, e) {
+    this.sliceCount = n, this.deltMove = o, this.costMax = t, this.path = e, this.directions = this.computeDirections();
+  }
+  recognize(n) {
+    let o = Number.POSITIVE_INFINITY, t = null;
+    for (let e of n) {
+      let i = this.costLeven(e.directions, this.directions);
+      if (e.filter !== null) {
+        let s = new M(
+          this.path.deltaPoints,
+          this.path.boundingBox,
+          this.directions,
+          i
+        );
+        i = e.filter(s, e);
+      }
+      i < this.costMax && i < o && (o = i, t = e);
+    }
+    return t;
+  }
+  directionCost(n, o) {
+    let t = Math.abs(n - o);
+    return t > this.sliceCount / 2 && (t = this.sliceCount - t), t;
+  }
+  create2dArray(n, o, t) {
+    let e = [];
+    for (let i = 0; i < n; i++) {
+      e.push([]);
+      for (let s = 0; s < o; s++)
+        e[i].push(t);
+    }
+    return e;
+  }
+  costLeven(n, o) {
+    let t = this.create2dArray(n.length + 1, o.length + 1, 0), e = this.create2dArray(n.length + 1, o.length + 1, 0), i = Number.POSITIVE_INFINITY;
+    for (let r = 1; r <= n.length; r++)
+      for (let l = 1; l < o.length; l++)
+        t[r][l] = this.directionCost(n[r - 1], o[l - 1]);
+    for (let r = 1; r <= o.length; r++)
+      e[0][r] = i;
+    for (let r = 1; r <= n.length; r++)
+      e[r][0] = i;
+    e[0][0] = 0;
+    let s = 0, h, c, d;
+    for (let r = 1; r <= n.length; r++)
+      for (let l = 1; l < o.length; l++)
+        s = t[r][l], h = e[r - 1][l] + s, c = e[r][l - 1] + s, d = e[r - 1][l - 1] + s, e[r][l] = Math.min(Math.min(h, c), d);
+    return e[n.length][o.length - 1];
+  }
+  computeDirections() {
+    let n = this.path.deltaPoints;
+    if (n.count < 2)
+      return [];
+    let o = [], t = Math.PI * 2 / this.sliceCount;
+    for (let e = 0; e < n.length - 1; e++) {
+      let i = n[e].angleWithPoint(n[e + 1]);
+      if (i < 0 && (i += Math.PI * 2), i < t / 2 || i > Math.PI * 2 - t)
+        o.push(0);
+      else {
+        let s = Math.round(i / t);
+        o.push(s);
+      }
+    }
+    return o;
+  }
+}
+class M {
+  constructor(n, o, t, e) {
+    this.deltaPoints = n, this.boundingBox = o, this.directions = t, this.cost = e;
+  }
+}
+class b {
+  constructor(n, o) {
+    this.points = [];
+    let t = Number.POSITIVE_INFINITY;
+    this.boundingBox = new I(t, t, -t, -t);
+    let e = new v(n[0].x, n[0].y), i = null;
+    this.deltaPoints = [e];
+    for (let s of n)
+      i = new v(s.x, s.y), this.points.push(i), s.x < this.boundingBox.left && (this.boundingBox.left = s.x), s.x > this.boundingBox.right && (this.boundingBox.right = s.x), s.y < this.boundingBox.top && (this.boundingBox.top = s.y), s.y > this.boundingBox.bottom && (this.boundingBox.bottom = s.y), e.squareDistanceTo(i) >= o * o && (this.deltaPoints.push(i), e = i);
+    e !== i && this.deltaPoints.push(i);
+  }
+  get count() {
+    return this.points.length;
+  }
+}
+class I {
+  constructor(n = 0, o = 0, t = 0, e = 0) {
+    this.top = n, this.left = o, this.bottom = t, this.right = e;
+  }
+  get height() {
+    return this.bottom - this.top;
+  }
+  get width() {
+    return this.right - this.left;
+  }
+}
+class v {
+  constructor(n, o) {
+    this.x = n, this.y = o;
+  }
+  squareDistanceTo(n) {
+    let o = n.x - this.x, t = n.y - this.y;
+    return o * o + t * t;
+  }
+  angleWithPoint(n) {
+    let o = n.x - this.x, t = n.y - this.y;
+    return Math.atan2(t, o);
+  }
+}
+const D = (a, n) => {
+  const o = a.__vccOpts || a;
+  for (const [t, e] of n)
+    o[t] = e;
+  return o;
+}, z = { class: "PathRecognizer" }, B = {
   __name: "PathRecognizer",
   props: {
     sliceCount: {
@@ -45,159 +161,56 @@ const E = (d, p) => {
     }
   },
   emits: ["start-draw", "move-path", "stop-draw", "gesture"],
-  setup(d, { expose: p, emit: f }) {
-    const r = d, h = f, g = b(null), c = b([]), x = (a) => {
-      g.value = a.currentTarget, c.value = [{ x: a.clientX, y: a.clientY }], window.document.addEventListener("mouseup", m), I();
-    }, m = () => {
-      window.document.removeEventListener("mouseup", m), D();
-    }, y = (a) => {
-      const t = { x: a.clientX, y: a.clientY };
-      c.value = [...c.value, t], r.onMovePath && r.onMovePath(c.value), h("move-path", c.value);
-    }, I = () => {
-      g.value.addEventListener("mousemove", y), r.onStartDraw && r.onStartDraw(), h("start-draw");
-    }, D = () => {
-      g.value.removeEventListener("mousemove", y), r.onStopDraw && r.onStopDraw(), h("stop-draw"), c.value.length >= 2 ? P() : (r.onGesture && r.onGesture(null), h("gesture", null));
-    }, P = () => {
-      const a = new C(c.value, r.deltaMove), e = new z(r.sliceCount, r.deltaMove, r.costMax, a).recognize(r.models);
-      e ? (r.onGesture && r.onGesture(e.datas), h("gesture", e.datas)) : (r.onGesture && r.onGesture(null), h("gesture", null));
+  setup(a, { expose: n, emit: o }) {
+    const t = a, e = o, i = m(null), s = m([]), h = (u) => {
+      i.value = u.currentTarget, s.value = [{ x: u.clientX, y: u.clientY }], window.document.addEventListener("mouseup", c), r();
+    }, c = () => {
+      window.document.removeEventListener("mouseup", c), l();
+    }, d = (u) => {
+      const f = { x: u.clientX, y: u.clientY };
+      s.value = [...s.value, f], t.onMovePath && t.onMovePath(s.value), e("move-path", s.value);
+    }, r = () => {
+      i.value.addEventListener("mousemove", d), t.onStartDraw && t.onStartDraw(), e("start-draw");
+    }, l = () => {
+      i.value.removeEventListener("mousemove", d), t.onStopDraw && t.onStopDraw(), e("stop-draw"), s.value.length >= 2 ? g() : (t.onGesture && t.onGesture(null), e("gesture", null));
+    }, g = () => {
+      const u = new b(s.value, t.deltaMove), p = new _(
+        t.sliceCount,
+        t.deltaMove,
+        t.costMax,
+        u
+      ).recognize(t.models);
+      p ? (t.onGesture && t.onGesture(p.datas), e("gesture", p.datas)) : (t.onGesture && t.onGesture(null), e("gesture", null));
     };
-    p({
-      handleDown: x,
-      handleUp: m,
-      analyze: P,
+    return n({
+      handleDown: h,
+      handleUp: c,
+      analyze: g,
       clear: () => {
-        c.value = [], g.value = null;
+        s.value = [], i.value = null;
       },
-      getCurrentPoints: () => c.value,
-      moveTarget: g,
-      points: c
-    });
-    class z {
-      constructor(t, e, o, n) {
-        this.sliceCount = t, this.deltMove = e, this.costMax = o, this.path = n, this.directions = this.computeDirections();
-      }
-      recognize(t) {
-        let e = Number.POSITIVE_INFINITY, o = null;
-        for (let n of t) {
-          let s = this.costLeven(n.directions, this.directions);
-          if (n.filter !== null) {
-            let i = new B(this.path.deltaPoints, this.path.boundingBox, this.directions, s);
-            s = n.filter(i, n);
-          }
-          s < this.costMax && s < e && (e = s, o = n);
-        }
-        return o;
-      }
-      directionCost(t, e) {
-        let o = Math.abs(t - e);
-        return o > this.sliceCount / 2 && (o = this.sliceCount - o), o;
-      }
-      create2dArray(t, e, o) {
-        let n = [];
-        for (let s = 0; s < t; s++) {
-          n.push([]);
-          for (let i = 0; i < e; i++)
-            n[s].push(o);
-        }
-        return n;
-      }
-      costLeven(t, e) {
-        let o = this.create2dArray(t.length + 1, e.length + 1, 0), n = this.create2dArray(t.length + 1, e.length + 1, 0), s = Number.POSITIVE_INFINITY;
-        for (let l = 1; l <= t.length; l++)
-          for (let u = 1; u < e.length; u++)
-            o[l][u] = this.directionCost(t[l - 1], e[u - 1]);
-        for (let l = 1; l <= e.length; l++)
-          n[0][l] = s;
-        for (let l = 1; l <= t.length; l++)
-          n[l][0] = s;
-        n[0][0] = 0;
-        let i = 0, v, _, M;
-        for (let l = 1; l <= t.length; l++)
-          for (let u = 1; u < e.length; u++)
-            i = o[l][u], v = n[l - 1][u] + i, _ = n[l][u - 1] + i, M = n[l - 1][u - 1] + i, n[l][u] = Math.min(Math.min(v, _), M);
-        return n[t.length][e.length - 1];
-      }
-      computeDirections() {
-        let t = this.path.deltaPoints;
-        if (t.count < 2)
-          return [];
-        let e = [], o = Math.PI * 2 / this.sliceCount;
-        for (let n = 0; n < t.length - 1; n++) {
-          let s = t[n].angleWithPoint(t[n + 1]);
-          if (s < 0 && (s += Math.PI * 2), s < o / 2 || s > Math.PI * 2 - o)
-            e.push(0);
-          else {
-            let i = Math.round(s / o);
-            e.push(i);
-          }
-        }
-        return e;
-      }
-    }
-    class B {
-      constructor(t, e, o, n) {
-        this.deltaPoints = t, this.boundingBox = e, this.directions = o, this.cost = n;
-      }
-    }
-    class C {
-      constructor(t, e) {
-        this.points = [];
-        let o = Number.POSITIVE_INFINITY;
-        this.boundingBox = new N(o, o, -o, -o);
-        let n = new w(t[0].x, t[0].y), s = null;
-        this.deltaPoints = [n];
-        for (let i of t)
-          s = new w(i.x, i.y), this.points.push(s), i.x < this.boundingBox.left && (this.boundingBox.left = i.x), i.x > this.boundingBox.right && (this.boundingBox.right = i.x), i.y < this.boundingBox.top && (this.boundingBox.top = i.y), i.y > this.boundingBox.bottom && (this.boundingBox.bottom = i.y), n.squareDistanceTo(s) >= e * e && (this.deltaPoints.push(s), n = s);
-        n !== s && this.deltaPoints.push(s);
-      }
-      get count() {
-        return this.points.length;
-      }
-    }
-    class N {
-      constructor(t = 0, e = 0, o = 0, n = 0) {
-        this.top = t, this.left = e, this.bottom = o, this.right = n;
-      }
-      get height() {
-        return this.bottom - this.top;
-      }
-      get width() {
-        return this.right - this.left;
-      }
-    }
-    class w {
-      constructor(t, e) {
-        this.x = t, this.y = e;
-      }
-      squareDistanceTo(t) {
-        let e = t.x - this.x, o = t.y - this.y;
-        return e * e + o * o;
-      }
-      angleWithPoint(t) {
-        let e = t.x - this.x, o = t.y - this.y;
-        return Math.atan2(o, e);
-      }
-    }
-    return (a, t) => (R(), S("div", F, [
-      T(a.$slots, "default", {
-        onMouseDown: x,
-        onMouseUp: m
+      getCurrentPoints: () => s.value,
+      moveTarget: i,
+      points: s
+    }), (u, f) => (x(), y("div", z, [
+      P(u.$slots, "default", {
+        onMouseDown: h,
+        onMouseUp: c
       }, void 0, !0)
     ]));
   }
-}, L = /* @__PURE__ */ E(G, [["__scopeId", "data-v-0bfdb856"]]);
-class A {
-  constructor(p, f, r = null) {
-    this.directions = p, this.datas = f, this.filter = r;
-  }
-}
-const k = A, V = (d) => {
-  d.component("PathRecognizer", L);
+}, C = /* @__PURE__ */ D(B, [["__scopeId", "data-v-1533d3cb"]]), E = w, N = (a) => {
+  a.component("PathRecognizer", C);
 };
-typeof window < "u" && window.Vue && V(window.Vue);
+typeof window < "u" && window.Vue && N(window.Vue);
 export {
-  k as PathRecognizerModel,
-  A as PathRecognizerModels,
-  L as default,
-  V as install
+  b as Path,
+  M as PathInfos,
+  v as PathPoint,
+  _ as PathRecognizerCore,
+  E as PathRecognizerModel,
+  w as PathRecognizerModels,
+  I as PathRect,
+  C as default,
+  N as install
 };

@@ -22,7 +22,7 @@ describe("Vue3 相容性整合測試", () => {
 
   it("應該支援響應式 props", async () => {
     const testSliceCount = ref(16);
-    
+
     await wrapper.setProps({
       sliceCount: testSliceCount.value,
     });
@@ -43,10 +43,10 @@ describe("Vue3 相容性整合測試", () => {
 
     // 使用 Vue3 事件監聽方式
     wrapper.vm.$on = undefined; // Vue3 沒有 $on
-    
+
     // 測試事件發送
     wrapper.vm.$emit("test-event", "test-data");
-    
+
     // 檢查事件是否正確發送
     expect(wrapper.emitted("test-event")).toBeTruthy();
     expect(wrapper.emitted("test-event")[0][0]).toBe("test-data");
@@ -84,10 +84,10 @@ describe("Vue3 相容性整合測試", () => {
     };
 
     await wrapper.vm.handleDown(mockEvent);
-    
+
     // Vue3 應該正確更新響應式狀態
     await nextTick();
-    
+
     // 檢查狀態是否正確更新
     expect(wrapper.vm.moveTarget).toBeTruthy();
     expect(wrapper.vm.points).toBeDefined();
@@ -99,7 +99,7 @@ describe("Vue3 相容性整合測試", () => {
     expect(typeof wrapper.vm.handleDown).toBe("function");
     expect(typeof wrapper.vm.handleUp).toBe("function");
     expect(typeof wrapper.vm.analyze).toBe("function");
-    
+
     // Vue3 特有的方法檢查
     if (wrapper.vm.getCurrentPoints) {
       expect(typeof wrapper.vm.getCurrentPoints).toBe("function");
@@ -109,7 +109,7 @@ describe("Vue3 相容性整合測試", () => {
   it("應該正確處理 Vue3 生命週期", async () => {
     // 測試組件掛載和更新
     expect(wrapper.vm.$el).toBeDefined();
-    
+
     // 測試 props 更新觸發重新渲染
     await wrapper.setProps({
       sliceCount: 16,
@@ -124,7 +124,7 @@ describe("Vue3 相容性整合測試", () => {
     expect(wrapper.exists()).toBe(true);
     expect(wrapper.element).toBeDefined();
     expect(wrapper.classes()).toBeDefined();
-    
+
     // 測試查找功能
     const rootElement = wrapper.find(".PathRecognizer");
     expect(rootElement.exists()).toBe(true);
@@ -151,7 +151,7 @@ describe("Vue3 相容性整合測試", () => {
   it("應該正確處理 Vue3 的錯誤邊界", async () => {
     // 測試錯誤處理不會破壞 Vue3 的錯誤邊界
     const errorHandler = vi.fn();
-    
+
     // 模擬錯誤情況
     try {
       await wrapper.vm.handleDown(null); // 傳入 null 可能觸發錯誤

@@ -1,52 +1,40 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import PathRecognizer from 'vue-path-recognizer'
-import { PathRecognizerModels } from 'vue-path-recognizer'
+import { ref, onMounted } from "vue";
+import PathRecognizer from "vue-path-recognizer";
+import { PathRecognizerModels } from "vue-path-recognizer";
 
 // 響應式狀態
-const context = ref(null)
-const result = ref("")
+const context = ref(null);
+const result = ref("");
 
 // 過濾函數
 const filter = (infos, model) => {
-  let lastPoint
+  let lastPoint;
   switch (model.datas) {
     case "P":
-      lastPoint = [...infos.deltaPoints].pop()
-      if (
-        lastPoint.y >
-        infos.boundingBox.top + infos.boundingBox.height * 0.6
-      )
-        return Number.POSITIVE_INFINITY
-      return infos.cost
+      lastPoint = [...infos.deltaPoints].pop();
+      if (lastPoint.y > infos.boundingBox.top + infos.boundingBox.height * 0.6)
+        return Number.POSITIVE_INFINITY;
+      return infos.cost;
     case "D":
-      lastPoint = [...infos.deltaPoints].pop()
-      if (
-        lastPoint.y <
-        infos.boundingBox.top + infos.boundingBox.height * 0.6
-      )
-        return Number.POSITIVE_INFINITY
-      return infos.cost
+      lastPoint = [...infos.deltaPoints].pop();
+      if (lastPoint.y < infos.boundingBox.top + infos.boundingBox.height * 0.6)
+        return Number.POSITIVE_INFINITY;
+      return infos.cost;
     case "Q":
-      lastPoint = [...infos.deltaPoints].pop()
-      if (
-        lastPoint.y >
-        infos.boundingBox.top + infos.boundingBox.height * 0.3
-      )
-        return Number.POSITIVE_INFINITY
-      return infos.cost
+      lastPoint = [...infos.deltaPoints].pop();
+      if (lastPoint.y > infos.boundingBox.top + infos.boundingBox.height * 0.3)
+        return Number.POSITIVE_INFINITY;
+      return infos.cost;
     case "G":
-      lastPoint = [...infos.deltaPoints].pop()
-      if (
-        lastPoint.y <
-        infos.boundingBox.top + infos.boundingBox.height * 0.3
-      )
-        return Number.POSITIVE_INFINITY
-      return infos.cost
+      lastPoint = [...infos.deltaPoints].pop();
+      if (lastPoint.y < infos.boundingBox.top + infos.boundingBox.height * 0.3)
+        return Number.POSITIVE_INFINITY;
+      return infos.cost;
     default:
-      return infos.cost
+      return infos.cost;
   }
-}
+};
 
 // 字母模型定義
 const models = [
@@ -67,11 +55,7 @@ const models = [
   new PathRecognizerModels([6, 1, 6], "N"),
   new PathRecognizerModels([4, 3, 2, 1, 0, 7, 6, 5, 4], "O"),
   new PathRecognizerModels([2, 6, 7, 0, 1, 2, 3, 4], "P", filter),
-  new PathRecognizerModels(
-    [4, 3, 2, 1, 0, 7, 6, 5, 4, 0],
-    "Q",
-    filter
-  ),
+  new PathRecognizerModels([4, 3, 2, 1, 0, 7, 6, 5, 4, 0], "Q", filter),
   new PathRecognizerModels([2, 6, 7, 0, 1, 2, 3, 4, 1], "R"),
   new PathRecognizerModels([4, 3, 2, 1, 0, 1, 2, 3, 4], "S"),
   new PathRecognizerModels([0, 2], "T"),
@@ -80,47 +64,47 @@ const models = [
   new PathRecognizerModels([2, 7, 1, 6], "W"),
   new PathRecognizerModels([1, 0, 7, 6, 5, 4, 3], "X"),
   new PathRecognizerModels([2, 1, 0, 7, 6, 2, 3, 4, 5, 6, 7], "Y"),
-  new PathRecognizerModels([0, 3, 0], "Z")
-]
+  new PathRecognizerModels([0, 3, 0], "Z"),
+];
 
 // 事件處理函數
 const handleGesture = (datas) => {
   if (datas) {
-    result.value = datas
+    result.value = datas;
   } else {
-    result.value = null
+    result.value = null;
   }
-}
+};
 
 const handleStartDraw = () => {
-  context.value.clearRect(0, 0, 400, 400)
-}
+  context.value.clearRect(0, 0, 400, 400);
+};
 
 const handleMovePath = (points) => {
-  context.value.clearRect(0, 0, 400, 400)
-  context.value.moveTo(points[0].x, points[0].y)
-  context.value.beginPath()
+  context.value.clearRect(0, 0, 400, 400);
+  context.value.moveTo(points[0].x, points[0].y);
+  context.value.beginPath();
   for (let i = 1; i < points.length; i++) {
-    context.value.lineTo(points[i].x, points[i].y)
+    context.value.lineTo(points[i].x, points[i].y);
   }
-  context.value.stroke()
-}
+  context.value.stroke();
+};
 
 // 組件掛載後初始化 canvas
 onMounted(() => {
-  const canvas = document.getElementById("canvas")
-  const ctx = canvas.getContext("2d")
-  ctx.strokeStyle = "#444"
-  ctx.lineWidth = 6
-  context.value = ctx
-})
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+  ctx.strokeStyle = "#444";
+  ctx.lineWidth = 6;
+  context.value = ctx;
+});
 </script>
 
 <template>
   <div>
     <h1>Vue Path Recognizer 範例</h1>
     <p>在下方畫布上畫出字母，系統會自動辨識：</p>
-    
+
     <PathRecognizer
       :models="models"
       :onGesture="handleGesture"
@@ -137,15 +121,18 @@ onMounted(() => {
         />
       </template>
     </PathRecognizer>
-    
+
     <div class="result">
       <h2 v-if="result">辨識結果: {{ result }}</h2>
       <h2 v-else>請在畫布上畫出字母...</h2>
     </div>
-    
+
     <div class="instructions">
       <h3>支援的字母：</h3>
-      <p>A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, ★</p>
+      <p>
+        A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X,
+        Y, Z, ★
+      </p>
     </div>
   </div>
 </template>

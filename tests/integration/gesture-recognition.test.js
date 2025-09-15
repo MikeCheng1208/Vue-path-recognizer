@@ -23,7 +23,7 @@ describe("手勢辨識整合測試", () => {
 
   it("應該完整執行手勢辨識流程", async () => {
     const gestureCallback = vi.fn();
-    
+
     await wrapper.setProps({
       onGesture: gestureCallback,
     });
@@ -65,7 +65,10 @@ describe("手勢辨識整合測試", () => {
   });
 
   it("應該正確處理複雜手勢軌跡", async () => {
-    const complexModel = new PathRecognizerModels([0, 1, 2, 3, 4, 5, 6, 7], "O");
+    const complexModel = new PathRecognizerModels(
+      [0, 1, 2, 3, 4, 5, 6, 7],
+      "O"
+    );
 
     await wrapper.setProps({
       models: [complexModel],
@@ -108,7 +111,7 @@ describe("手勢辨識整合測試", () => {
 
   it("應該正確處理辨識失敗情況", async () => {
     const gestureCallback = vi.fn();
-    
+
     await wrapper.setProps({
       models: [], // 空模型陣列
       onGesture: gestureCallback,
@@ -131,7 +134,7 @@ describe("手勢辨識整合測試", () => {
 
   it("應該正確處理過短的手勢", async () => {
     const gestureCallback = vi.fn();
-    
+
     await wrapper.setProps({
       onGesture: gestureCallback,
     });
@@ -167,7 +170,7 @@ describe("手勢辨識整合測試", () => {
     };
 
     await wrapper.vm.handleDown(startEvent);
-    
+
     // 複雜的鋸齒軌跡
     const complexPoints = [
       { clientX: 110, clientY: 90 },
@@ -185,10 +188,10 @@ describe("手勢辨識整合測試", () => {
     // 檢查是否觸發了手勢事件
     const gestureEvents = wrapper.emitted("gesture");
     expect(gestureEvents).toBeTruthy();
-    
+
     // 由於簡單的直線軌跡與重複方向模型可能匹配，
     // 我們檢查確實有辨識結果（可能是 'I' 或 null）
     const lastResult = gestureEvents[gestureEvents.length - 1][0];
-    expect(lastResult === 'I' || lastResult === null).toBe(true);
+    expect(lastResult === "I" || lastResult === null).toBe(true);
   });
 });
