@@ -1,0 +1,18 @@
+{
+  "name": "vue-path-recognizer-example",
+  "version": "1.0.0",
+  "description": "Vue3 example for vue-path-recognizer",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.21"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.1",
+    "vite": "^7.1.5"
+  }
+}
