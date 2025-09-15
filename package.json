@@ -1,10 +1,21 @@
 {
   "name": "vue-path-recognizer",
-  "version": "1.0.22",
+  "version": "2.0.0",
   "description": "Path recognizing component for Vue",
-  "main": "./src/index.js",
+  "main": "./dist/vue-path-recognizer.umd.js",
+  "module": "./dist/vue-path-recognizer.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-path-recognizer.es.js",
+      "require": "./dist/vue-path-recognizer.umd.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
-    "deploy": "webpack --mode production",
+    "build": "vite build",
     "push": "git push && npm publish"
   },
   "repository": {
@@ -22,31 +33,11 @@
   },
   "homepage": "https://github.com/MikeCheng1208/Vue-path-recognizer",
   "devDependencies": {
-    "@babel/core": "^7.5.4",
-    "@babel/preset-env": "^7.5.4",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^8.0.6",
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-export-extensions": "^6.22.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "css-loader": "^3.0.0",
-    "loader-utils": "^1.2.3",
-    "npm": "^10.2.4",
-    "npm-run-all": "^4.1.5",
-    "style-loader": "^0.23.1",
-    "vue": "^2.6.10",
-    "vue-html-loader": "^1.2.4",
-    "vue-loader": "^15.7.0",
-    "vue-template-compiler": "^2.6.10",
-    "webpack": "^4.35.3",
-    "webpack-cli": "^3.3.5",
-    "webpack-manifest-plugin": "^2.0.4"
+    "@vitejs/plugin-vue": "^6.0.1",
+    "vite": "^7.1.5",
+    "vue": "^3.5.21"
   },
-  "directories": {
-    "example": "example"
-  },
-  "dependencies": {}
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  }
 }

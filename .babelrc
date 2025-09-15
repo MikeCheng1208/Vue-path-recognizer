@@ -1,7 +1,0 @@
-{
-  "presets": ["@babel/preset-env"],
-  "plugins": [
-    "babel-plugin-transform-class-properties",
-    "transform-async-to-generator"
-  ]
-}
