@@ -7,9 +7,13 @@ export default defineConfig({
   plugins: [vue()],
   build: {
     lib: {
-      entry: resolve(fileURLToPath(new URL(".", import.meta.url)), "src/index.js"),
+      entry: resolve(
+        fileURLToPath(new URL(".", import.meta.url)),
+        "src/index.js"
+      ),
       name: "VuePathRecognizer",
       fileName: (format) => `vue-path-recognizer.${format}.js`,
+      formats: ["es", "cjs", "iife"],
     },
     rollupOptions: {
       external: ["vue"],
