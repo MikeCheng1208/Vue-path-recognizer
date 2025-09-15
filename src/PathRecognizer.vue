@@ -136,7 +136,6 @@ defineExpose({
   moveTarget,
   points,
 });
-
 </script>
 
 <template>
